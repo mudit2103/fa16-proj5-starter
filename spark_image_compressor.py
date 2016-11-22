@@ -31,11 +31,23 @@ def apply_transformations(rdd):
     ### BEGIN SOLUTION ###
     return rdd
 
+def combine_sub_blocks(rdd):
+    """
+    Given an rdd of subblocks from many different images, combine them together to reform the images.
+    Should your rdd should contain values that are np arrays of size (height, width).
+
+    THIS FUNCTION MUST RETURN AN RDD
+    """
+    ### BEGIN SOLUTION ###
+    return rdd
+
 def run(images):
     """
     THIS FUNCTION MUST RETURN AN RDD
 
     Returns an RDD where all the images will be proccessed once the RDD is aggregated.
+    The format returned in the RDD should be (image_id, image_matrix) where image_matrix 
+    is an np array of size (height, width, 3).
     """
     sc = SparkContext()
     rdd = sc.parallelize(images, 16) \
@@ -43,9 +55,10 @@ def run(images):
     rdd = generate_Y_cb_cr_matrices(rdd)
     rdd = generate_sub_blocks(rdd)
     rdd = apply_transformations(rdd)
+    rdd = combine_sub_blocks(rdd)
 
     ### BEGIN SOLUTION HERE ###
-    # Add code here to put sub-blocks back together
+    # Add any other necessary functions you would like to perform on the rdd here
     # Feel free to write as many helper functions as necessary
     return  rdd
 
