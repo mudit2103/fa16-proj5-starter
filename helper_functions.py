@@ -78,7 +78,7 @@ def truncate(pair):
     return (k, img)
 
 
-def naive_compress(image):
+def naive_transform(image):
     Y, crf, cbf = convert_to_YCrCb(image)
     channels = [Y, crf, cbf]
     reimg = np.zeros((height, width, 3), np.uint8)
