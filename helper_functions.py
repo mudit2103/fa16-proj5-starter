@@ -78,7 +78,7 @@ def truncate(pair):
     return (k, img)
 
 
-def naive_compress(image):
+def naive_transform(image):
     height, width = np.array(image.shape[:2])/16 * 16
     image = image[:height, :width]
     Y, crf, cbf = convert_to_YCrCb(image)
