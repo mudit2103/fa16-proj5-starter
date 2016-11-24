@@ -73,12 +73,14 @@ def truncate(pair):
     """
     k = pair[0]
     img = pair[1]
-    height, width = np.array(img.shape[:2])/8 * 8
+    height, width = np.array(img.shape[:2])/16*16
     img = img[:height, :width]
     return (k, img)
 
 
 def naive_compress(image):
+    height, width = np.array(image.shape[:2])/16 * 16
+    image = image[:height, :width]
     Y, crf, cbf = convert_to_YCrCb(image)
     channels = [Y, crf, cbf]
     reimg = np.zeros((height, width, 3), np.uint8)
