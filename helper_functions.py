@@ -11,7 +11,7 @@ def quantize_block(block, is_luminance, QF, inverse=False):
     is_luminance is true of it is a block from the Y matrix, else it is false.
     """
     scale = 1.0
-    if QF < 50 and QF > 1:
+    if QF < 50 and QF >= 1:
         scale = np.floor( 5000 / QF ) 
     elif QF < 100:
         scale = 200 - 2 * QF
