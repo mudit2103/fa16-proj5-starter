@@ -4,7 +4,7 @@ import scipy as sp
 import struct
 from constants import *
 
-def quantize_block(block, is_luminance, QF, inverse=False):
+def quantize_block(block, is_luminance, QF=99, inverse=False):
     """
     Applies quantization or inverse quantization to an 8 by 8 block.
 
@@ -73,21 +73,21 @@ def truncate(pair):
     """
     k = pair[0]
     img = pair[1]
-    height, width = np.array(img.shape[:2])/16*16
+    height, width = np.array(img.shape[:2])/8 * 8
     img = img[:height, :width]
     return (k, img)
 
 
-def naive_transform(image):
-    height, width = np.array(image.shape[:2])/16 * 16
-    image = image[:height, :width]
+def naive_compress(image):
+    image = truncate((None, image))[1]
     Y, crf, cbf = convert_to_YCrCb(image)
     channels = [Y, crf, cbf]
+    height, width = np.array(image.shape[:2])
     reimg = np.zeros((height, width, 3), np.uint8)
     for idx, channel in enumerate(channels):
         no_rows = channel.shape[0]
         no_cols = channel.shape[1]
-        dst = np.zeros((no_rows, no_cols))
+        dst = np.zeros((no_rows, no_cols), np.float32)
         no_vert_blocks = no_cols / b_size
         no_horz_blocks = no_rows / b_size
         for j in range(no_vert_blocks):
