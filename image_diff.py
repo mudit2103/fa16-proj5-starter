@@ -12,7 +12,7 @@ im1 = cv2.imread(args.file1, cv2.IMREAD_UNCHANGED)
 im2 = cv2.imread(args.file2, cv2.IMREAD_UNCHANGED)
 
 diff = np.round(im1 - im2)
-if np.max(diff) > 0:
+if np.abs(np.max(diff)) > 1:
     print "Images do not match"
 else:
     print "Images match"
