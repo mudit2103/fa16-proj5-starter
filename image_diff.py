@@ -11,7 +11,7 @@ args = parser.parse_args()
 im1 = cv2.imread(args.file1, cv2.IMREAD_UNCHANGED)
 im2 = cv2.imread(args.file2, cv2.IMREAD_UNCHANGED)
 
-diff = np.round(im1 - im2)
+diff = np.round(im1.astype(np.float32) - im2.astype(np.float32))
 if np.max(np.abs(diff)) > 1:
     print "Images do not match"
 else:
